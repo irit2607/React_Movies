@@ -16,6 +16,13 @@ function App() {
     alignItems: "flex-start"
   };
 
+  const hrStyle = {
+    border: "0",
+    height: "0",
+    borderTop: "1px solid rgba(0, 0, 0, 0.1)",
+    borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
+  }
+
   const [movie, setMovie] = useState([]);
   const [data1, setData1] = useState([]);
   var shows = [];
@@ -43,6 +50,7 @@ function App() {
     console.log(data1);
   }
 
+
   return (
     <>
       <div className="App">
@@ -59,10 +67,11 @@ function App() {
                     <div style={{ cursor: "pointer" }}>
                       <p style={{ fontSize: "20px", alignItems: "flex-start" }}>
                         {i.name}</p>
-                      <td>
+                      <div style={{ marginTop: "-2.7em", marginLeft: "-2em" }}><td>
                         <FaHeart style={{ fontSize: "25px" }} onClick={() => handleClick(i.name, index)} />
-                      </td>
-                      <hr></hr>
+                      </td></div>
+
+                      <hr style={hrStyle}></hr>
 
                     </div>
                   </div>
@@ -70,17 +79,31 @@ function App() {
               })}
             </td>
             <div style={{ marginTop: "-0.5em" }}> <td style={{ paddingLeft: "16em", fontSize: "20px" }}>
-              {data1.map((demo) => {                                       // demo is a object in which map func searially executing the object i.e each single data  
+              {/* {data1.map((demo) => {                                       // demo is a object in which map func searially executing the object i.e each single data  
                 return (                     // data1[data1.indexOf(demo)]
-                  <>                                                                       
-                    {data1.length === 0 ? "No selected value" : <p>{demo}</p>}                   
+                  <>
+                  
 
-                    <button className="btn btn-sm btn-danger" onClick={() => onDelete(demo)} style={myStyle}>
-                      DELETE
-                    </button><br />
+                    <br />
                   </>
                 )
-              })}
+              })} */}
+
+              <p>
+                    {data1.filter((item, index) => data1.indexOf(item) === index).map((demo) => {
+                      return (
+                        <><p>{demo}</p>
+                        <button className="btn btn-sm btn-danger" onClick={() => onDelete(demo)} style={myStyle}>
+                      DELETE
+                    </button></>
+                        
+                      )
+                    })}
+             </p>
+              {data1.length <= 0 &&
+                <p style={{ fontSize: "20px" }}>No Selected Values</p>
+              }
+
             </td></div>
 
           </tr>
